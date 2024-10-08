@@ -103,10 +103,10 @@ func main() {
 		setupLog.Error(err, "Failed to set DPU_DAEMON_IMAGE env var")
 		os.Exit(1)
 	}
-
-	injectorWebhookCA := os.Getenv("ADMISSION_CONTROLLERS_CERTIFICATES_INJECTOR_CA_CRT")
+	injectorWebhookCA := os.Getenv("ADMISSION_CONTROLLERS_CA_CRT")
 	if injectorWebhookCA == "" {
 		setupLog.Error(err, "Failed to set ADMISSION_CONTROLLERS_CERTIFICATES_INJECTOR_CA_CRT env var")
+		os.Exit(1)
 	}
 
 	b := controller.NewDpuOperatorConfigReconciler(mgr.GetClient(), mgr.GetScheme(), dpuDaemonImage, vspImages, injectorWebhookCA)
